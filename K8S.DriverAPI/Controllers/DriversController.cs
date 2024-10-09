@@ -105,6 +105,36 @@ namespace K8S.DriverAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("GetTopDriversByRaceWins")]
+        public async Task<IActionResult> GetTopDriversByRaceWins()
+        {
+            var drivers = await _unitOfWork.Drivers.GetTopDriversByRaceWins();
+
+            var result = drivers.Adapt<IEnumerable<TopDriverByRaceWins>>();
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetTopDriversByFastestLap")]
+        public async Task<IActionResult> GetTopDriversByFastestLap()
+        {
+            var drivers = await _unitOfWork.Drivers.GetTopDriversByFastestLap();
+
+            var result = drivers.Adapt<IEnumerable<TopDriverByFastestLap>>();
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetTopDriversByPolePosition")]
+        public async Task<IActionResult> GetTopDriversByPolePosition()
+        {
+            var drivers = await _unitOfWork.Drivers.GetTopDriversByPolePosition();
+
+            var result = drivers.Adapt<IEnumerable<TopDriverByPolePosition>>();
+
+            return Ok(result);
+        }
+
         private async Task<IActionResult> TestConnection()
         {
             using (HttpClient client = new HttpClient())
