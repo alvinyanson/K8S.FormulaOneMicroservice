@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: driverstatapinp-srv
+spec:
+  type: NodePort
+  selector:
+    app: driverstatapiservice
+  ports:
+    - name: driverstatapiservice
+      protocol: TCP
+      port: 8080
+      targetPort: 8080

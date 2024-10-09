@@ -20,6 +20,9 @@ namespace K8S.DriverAPI.Profiles
                 .Map(dest => dest.UpdatedDate, src => DateTime.UtcNow);
 
 
+            config.NewConfig<CreateDriverAchievementRequest, Achievement>()
+                .Map(dest => dest.RaceWins, src => src.Wins);
+
 
             // domain to response
             // source to destination
@@ -51,6 +54,7 @@ namespace K8S.DriverAPI.Profiles
 
             config.NewConfig<Achievement, DriverAchievementResponse>()
                 .Map(dest => dest.Wins, src => src.RaceWins);
+
         }
     }
 }
