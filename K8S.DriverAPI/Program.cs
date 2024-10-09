@@ -2,6 +2,7 @@ using K8S.DriverAPI.Data;
 using K8S.DriverAPI.Data.Repositories;
 using K8S.DriverAPI.Data.Repositories.Interfaces;
 using K8S.DriverAPI.Profiles;
+using K8S.Microservice.Driver.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,12 +20,19 @@ builder.Services.RegisterMapsterConfiguration();
 // connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+Console.WriteLine($"Connection string --- {connectionString}");
+
+Console.WriteLine($"Test string --- {connectionString}");
+
+
 // initialize db context in DI Container
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
+
+PrepDB.PrepPopulation(app, app.Environment.IsProduction());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

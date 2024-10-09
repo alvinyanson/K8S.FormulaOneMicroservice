@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: driverstatapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: driverstatapiservice
+  template:
+    metadata:
+      labels:
+        app: driverstatapiservice
+    spec:
+      containers:
+        - name: driverstatapiservice
+          image: ayansonarcanys/k8s-f1driverstatapiservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: driverstatapi-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: driverstatapiservice
+  ports:
+    - name: driverstatapiservice
+      protocol: TCP
+      port: 8080
+      targetPort: 8080

@@ -21,6 +21,11 @@ namespace K8S.DriverAPI.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet("Test")]
+        public IActionResult Test() {
+            return Ok("Connection worked");
+        }
+
         [HttpGet]
         [Route("{driverId:Guid}")]
         public async Task<IActionResult> GetDriver(Guid driverId)
@@ -41,8 +46,6 @@ namespace K8S.DriverAPI.Controllers
             var drivers = await _unitOfWork.Drivers.All();
 
             var result = drivers.Adapt<IEnumerable<GetDriverResponse>>();
-
-            await TestConnection();
 
             return Ok(result);
         }
@@ -91,6 +94,10 @@ namespace K8S.DriverAPI.Controllers
 
             return NoContent();
         }
+
+        //private async Task<IActionResult> GetTopDriversByWorldChampionship()
+        //{
+        //}
 
         private async Task<IActionResult> TestConnection()
         {
