@@ -26,7 +26,12 @@ namespace K8S.DriverAPI.Profiles
             config.NewConfig<Driver, GetDriverResponse>()
                 .Map(dest => dest.DriverId, src => src.Id)
                 .Map(dest => dest.FullName, src => $"{src.FirstName} {src.LastName}");
-                
+
+
+            config.NewConfig<Driver, TopDriverByWorldChampionshipResponse>()
+                .Map(dest => dest.DriverId, src => src.Id)
+                .Map(dest => dest.FullName, src => $"{src.FirstName} {src.LastName}")
+                .Map(dest => dest.WorldChampionships, src => src.Achievements.WorldChampionship);
         }
     }
 }

@@ -8,7 +8,5 @@ namespace K8S.DriverAPI.Models
         public int FastestLap { get; set; }
         public int WorldChampionship { get; set; }
         public Guid DriverId { get; set; }
-
-        public virtual Driver? Driver { get; set; }
     }
 }

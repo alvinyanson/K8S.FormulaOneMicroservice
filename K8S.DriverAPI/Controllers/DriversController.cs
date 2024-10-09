@@ -95,9 +95,15 @@ namespace K8S.DriverAPI.Controllers
             return NoContent();
         }
 
-        //private async Task<IActionResult> GetTopDriversByWorldChampionship()
-        //{
-        //}
+        [HttpGet("GetTopDriversByWorldChampionships")]
+        public async Task<IActionResult> GetTopDriversByWorldChampionships()
+        {
+            var drivers = await _unitOfWork.Drivers.GetTopDriversByWorldChampionships();
+
+            var result = drivers.Adapt<IEnumerable<TopDriverByWorldChampionshipResponse>>();
+
+            return Ok(result);
+        }
 
         private async Task<IActionResult> TestConnection()
         {

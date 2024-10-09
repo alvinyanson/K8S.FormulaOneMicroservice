@@ -1,5 +1,7 @@
 ﻿
+using CQRSMediatr.DataService.Repositories;
 using K8S.DriverAPI.Data.Repositories.Interfaces;
+using K8S.DriverAPI.Models;
 using Microsoft.Extensions.Logging;
 
 namespace K8S.DriverAPI.Data.Repositories
@@ -9,6 +11,7 @@ namespace K8S.DriverAPI.Data.Repositories
         private readonly AppDbContext _context;
 
         public IDriverRepository Drivers { get; }
+        public IAchievementRepository Achievements { get; }
 
         public UnitOfWork(AppDbContext context, ILoggerFactory loggerFactory)
         {
@@ -17,6 +20,7 @@ namespace K8S.DriverAPI.Data.Repositories
             var logger = loggerFactory.CreateLogger("logs");
 
             Drivers = new DriverRepository(logger, context);
+            Achievements = new AchievementsRepository(logger, context);
         }
 
         public async Task<bool> CompleteAsync()

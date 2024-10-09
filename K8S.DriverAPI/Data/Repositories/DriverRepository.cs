@@ -51,6 +51,22 @@ namespace K8S.DriverAPI.Data.Repositories
             }
         }
 
+        public async Task<IEnumerable<Driver>> GetTopDriversByWorldChampionships()
+        {
+            try
+            {
+                return await _dbSet.Where(x => x.Status == 1)
+                    .Include(x => x.Achievements)
+                    .AsNoTracking()
+                    .OrderByDescending(x => x.Achievements.WorldChampionship)
+                    .ToListAsync();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} GetTopDriversByWorldChampionships function error", typeof(DriverRepository));
+                throw;
+            }
+        }
 
         public override async Task<bool> Update(Driver driver)
         {
