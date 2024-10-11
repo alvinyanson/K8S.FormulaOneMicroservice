@@ -1,7 +1,7 @@
 ﻿
-namespace K8S.DriverAPI.DTOs.Responses
+namespace K8S.DriverAchievementAPI.DTOs.Requests
 {
-    public class DriverAchievementResponse
+    public class UpdateDriverAchievementRequest
     {
         public Guid DriverId { get; set; }
         public int WorldChampionship { get; set; }

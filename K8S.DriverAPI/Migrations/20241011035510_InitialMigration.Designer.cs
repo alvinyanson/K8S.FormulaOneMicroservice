@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace K8S.DriverAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241008035739_InitialMigration")]
+    [Migration("20241011035510_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -25,44 +25,7 @@ namespace K8S.DriverAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("K8S.Entities.Achievement", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("AddedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("DriverId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("FastestLap")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PolePosition")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RaceWins")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("WorldChampionship")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DriverId");
-
-                    b.ToTable("Achievements");
-                });
-
-            modelBuilder.Entity("K8S.Entities.Driver", b =>
+            modelBuilder.Entity("K8S.DriverAPI.Models.Driver", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,23 +57,6 @@ namespace K8S.DriverAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Drivers");
-                });
-
-            modelBuilder.Entity("K8S.Entities.Achievement", b =>
-                {
-                    b.HasOne("K8S.Entities.Driver", "Driver")
-                        .WithMany("Achievements")
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_Achievements_Driver");
-
-                    b.Navigation("Driver");
-                });
-
-            modelBuilder.Entity("K8S.Entities.Driver", b =>
-                {
-                    b.Navigation("Achievements");
                 });
 #pragma warning restore 612, 618
         }

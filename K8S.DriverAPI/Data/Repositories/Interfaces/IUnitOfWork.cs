@@ -5,8 +5,6 @@ namespace K8S.DriverAPI.Data.Repositories.Interfaces
     {
         IDriverRepository Drivers { get; }
 
-        IAchievementRepository Achievements { get; }
-
         Task<bool> CompleteAsync();
     }
 }

@@ -1,12 +1,12 @@
 ﻿
-using K8S.DriverAPI.Data.Repositories.Interfaces;
-using K8S.DriverAPI.DTOs.Requests;
-using K8S.DriverAPI.DTOs.Responses;
-using K8S.DriverAPI.Models;
+using K8S.DriverAchievementAPI.Data.Repositories.Interfaces;
+using K8S.DriverAchievementAPI.DTOs.Requests;
+using K8S.DriverAchievementAPI.DTOs.Responses;
+using K8S.DriverAchievementAPI.Models;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
-namespace K8S.DriverAPI.Controllers
+namespace K8S.DriverAchievementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -39,12 +39,12 @@ namespace K8S.DriverAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDriverAchievement([FromBody] CreateDriverAchievementRequest driverAchievement)
+        public async Task<IActionResult> AddDriverAchievement([FromBody] CreateDriverAchievementRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = driverAchievement.Adapt<Achievement>();
+            var result = request.Adapt<Achievement>();
 
             await _unitOfWork.Achievements.Add(result);
             await _unitOfWork.CompleteAsync();
@@ -53,12 +53,12 @@ namespace K8S.DriverAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateDriverAchievement([FromBody] UpdateDriverAchievementRequest driverAchievement)
+        public async Task<IActionResult> UpdateDriverAchievement([FromBody] UpdateDriverAchievementRequest request)
         {
             if (!ModelState.IsValid) 
                 return BadRequest();
 
-            var result = driverAchievement.Adapt<Achievement>();
+            var result = request.Adapt<Achievement>();
 
             await _unitOfWork.Achievements.Update(result);
             await _unitOfWork.CompleteAsync();

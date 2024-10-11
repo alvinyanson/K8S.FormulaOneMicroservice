@@ -4,7 +4,6 @@ using K8S.DriverAPI.DTOs.Responses;
 using K8S.DriverAPI.Models;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace K8S.DriverAPI.Controllers
 {
@@ -51,12 +50,12 @@ namespace K8S.DriverAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDriver([FromBody] CreateDriverRequest driver)
+        public async Task<IActionResult> AddDriver([FromBody] CreateDriverRequest request)
         {
             if(!ModelState.IsValid)
                 return BadRequest();
 
-            var result = driver.Adapt<Driver>();
+            var result = request.Adapt<Driver>();
 
             await _unitOfWork.Drivers.Add(result);
 
@@ -66,12 +65,12 @@ namespace K8S.DriverAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateDriver([FromBody] UpdateDriverRequest driver)
+        public async Task<IActionResult> UpdateDriver([FromBody] UpdateDriverRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = driver.Adapt<Driver>();
+            var result = request.Adapt<Driver>();
 
             await _unitOfWork.Drivers.Update(result);
 
@@ -93,46 +92,6 @@ namespace K8S.DriverAPI.Controllers
             await _unitOfWork.CompleteAsync();
 
             return NoContent();
-        }
-
-        [HttpGet("GetTopDriversByWorldChampionships")]
-        public async Task<IActionResult> GetTopDriversByWorldChampionships()
-        {
-            var drivers = await _unitOfWork.Drivers.GetTopDriversByWorldChampionships();
-
-            var result = drivers.Adapt<IEnumerable<TopDriverByWorldChampionshipResponse>>();
-
-            return Ok(result);
-        }
-
-        [HttpGet("GetTopDriversByRaceWins")]
-        public async Task<IActionResult> GetTopDriversByRaceWins()
-        {
-            var drivers = await _unitOfWork.Drivers.GetTopDriversByRaceWins();
-
-            var result = drivers.Adapt<IEnumerable<TopDriverByRaceWins>>();
-
-            return Ok(result);
-        }
-
-        [HttpGet("GetTopDriversByFastestLap")]
-        public async Task<IActionResult> GetTopDriversByFastestLap()
-        {
-            var drivers = await _unitOfWork.Drivers.GetTopDriversByFastestLap();
-
-            var result = drivers.Adapt<IEnumerable<TopDriverByFastestLap>>();
-
-            return Ok(result);
-        }
-
-        [HttpGet("GetTopDriversByPolePosition")]
-        public async Task<IActionResult> GetTopDriversByPolePosition()
-        {
-            var drivers = await _unitOfWork.Drivers.GetTopDriversByPolePosition();
-
-            var result = drivers.Adapt<IEnumerable<TopDriverByPolePosition>>();
-
-            return Ok(result);
         }
 
         private async Task<IActionResult> TestConnection()

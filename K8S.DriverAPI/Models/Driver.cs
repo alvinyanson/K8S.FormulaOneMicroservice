@@ -8,6 +8,5 @@ namespace K8S.DriverAPI.Models
         public string LastName { get; set; } = string.Empty;
         public int DriverNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public Achievement? Achievements { get; set; }
     }
 }

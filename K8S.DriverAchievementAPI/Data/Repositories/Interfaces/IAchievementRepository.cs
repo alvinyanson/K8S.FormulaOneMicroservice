@@ -1,8 +1,8 @@
 ﻿
 
-using K8S.DriverAPI.Models;
+using K8S.DriverAchievementAPI.Models;
 
-namespace K8S.DriverAPI.Data.Repositories.Interfaces
+namespace K8S.DriverAchievementAPI.Data.Repositories.Interfaces
 {
     public interface IAchievementRepository : IGenericRepository<Achievement>
     {

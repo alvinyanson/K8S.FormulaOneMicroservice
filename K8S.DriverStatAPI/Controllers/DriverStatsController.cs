@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using K8S.DriverStatAPI.DTOs.Responses;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
 namespace K8S.DriverStatAPI.Controllers
@@ -21,71 +22,24 @@ namespace K8S.DriverStatAPI.Controllers
         }
 
 
-        [HttpGet("GetByWorldChampionships")]
-        public async Task<IActionResult> GetByWorldChampionships()
+        [HttpGet("GetConsistencyRating/{driverId}")]
+        public async Task<IActionResult> GetConsistencyRating(string driverId)
         {
             using (HttpClient client = new HttpClient())
             {
-                var response = await client.GetAsync($"{_configuration.GetConnectionString("DriverAPI")}/GetTopDriversByWorldChampionships");
+                var response = await client.GetAsync($"{_configuration.GetConnectionString("DriverAchievementAPI")}/{driverId}");
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();
 
-                    return Ok(jsonResponse);
+                    var parsedResponse = JsonSerializer.Deserialize<DriverAchievementResponse>(jsonResponse);
+
+                    var consistencyRating = (parsedResponse.Wins / parsedResponse.PolePosition) * 100;
+
+                    return Ok(consistencyRating);
                 }
 
-                return BadRequest("Http test connection failed on DriverStatAPI");
-            }
-        }
-
-        [HttpGet("GetByRaceWins")]
-        public async Task<IActionResult> GetByRaceWins()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                var response = await client.GetAsync($"{_configuration.GetConnectionString("DriverAPI")}/GetTopDriversByRaceWins");
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
-
-                    return Ok(jsonResponse);
-                }
-
-                return BadRequest("Http test connection failed on DriverStatAPI");
-            }
-        }
-
-        [HttpGet("GetByFastestLap")]
-        public async Task<IActionResult> GetByFastestLap()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                var response = await client.GetAsync($"{_configuration.GetConnectionString("DriverAPI")}/GetTopDriversByFastestLap");
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
-
-                    return Ok(jsonResponse);
-                }
-
-                return BadRequest("Http test connection failed on DriverStatAPI");
-            }
-        }
-
-        [HttpGet("GetByPolePosition")]
-        public async Task<IActionResult> GetByPolePosition()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                var response = await client.GetAsync($"{_configuration.GetConnectionString("DriverAPI")}/GetTopDriversByPolePosition");
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
-
-                    return Ok(jsonResponse);
-                }
-
-                return BadRequest("Http test connection failed on DriverStatAPI");
+                return BadRequest("Failed on DriverStatAPI.GetConsistencyRating");
             }
         }
     }

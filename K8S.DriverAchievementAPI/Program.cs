@@ -1,8 +1,7 @@
-using K8S.DriverAPI.Data;
-using K8S.DriverAPI.Data.Repositories;
-using K8S.DriverAPI.Data.Repositories.Interfaces;
-using K8S.DriverAPI.Profiles;
-using K8S.Microservice.Driver.Data;
+using K8S.DriverAchievementAPI.Data;
+using K8S.DriverAchievementAPI.Data.Repositories.Interfaces;
+using K8S.DriverAchievementAPI.Profiles;
+using K8S.DriverAchievementAPI.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 // mapster
 builder.Services.RegisterMapsterConfiguration();
 
@@ -22,15 +22,13 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 Console.WriteLine($"Connection string --- {connectionString}");
 
-
 // initialize db context in DI Container
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-var app = builder.Build();
 
-PrepDB.PrepPopulation(app, app.Environment.IsProduction());
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,7 +1,7 @@
-﻿using K8S.DriverAPI.Models;
+﻿using K8S.DriverAchievementAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace K8S.DriverAPI.Data
+namespace K8S.DriverAchievementAPI.Data
 {
     public class AppDbContext : DbContext
     {
@@ -11,6 +11,6 @@ namespace K8S.DriverAPI.Data
         }
 
         // define the db entities
-        public virtual DbSet<Driver> Drivers { get; set; }
+        public virtual DbSet<Achievement> Achievements { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace K8S.DriverAPI.Migrations
+namespace K8S.DriverAchievementAPI.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -11,24 +11,6 @@ namespace K8S.DriverAPI.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Drivers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DriverNumber = table.Column<int>(type: "int", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Drivers", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Achievements",
                 columns: table => new
@@ -46,17 +28,7 @@ namespace K8S.DriverAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Achievements", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Achievements_Driver",
-                        column: x => x.DriverId,
-                        principalTable: "Drivers",
-                        principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Achievements_DriverId",
-                table: "Achievements",
-                column: "DriverId");
         }
 
         /// <inheritdoc />
@@ -64,9 +36,6 @@ namespace K8S.DriverAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Achievements");
-
-            migrationBuilder.DropTable(
-                name: "Drivers");
         }
     }
 }

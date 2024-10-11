@@ -3,7 +3,6 @@
 using K8S.DriverAPI.Data.Repositories.Interfaces;
 using K8S.DriverAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace K8S.DriverAPI.Data.Repositories
 {
@@ -47,74 +46,6 @@ namespace K8S.DriverAPI.Data.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "{Repo} Delete function error", typeof(DriverRepository));
-                throw;
-            }
-        }
-
-        public async Task<IEnumerable<Driver>> GetTopDriversByFastestLap()
-        {
-            try
-            {
-                return await _dbSet.Where(x => x.Status == 1)
-                    .Include(x => x.Achievements)
-                    .AsNoTracking()
-                    .OrderByDescending(x => x.Achievements.FastestLap)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "{Repo} GetTopDriversByFastestLap function error", typeof(DriverRepository));
-                throw;
-            }
-        }
-
-        public async Task<IEnumerable<Driver>> GetTopDriversByPolePosition()
-        {
-            try
-            {
-                return await _dbSet.Where(x => x.Status == 1)
-                    .Include(x => x.Achievements)
-                    .AsNoTracking()
-                    .OrderByDescending(x => x.Achievements.PolePosition)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "{Repo} GetTopDriversByPolePosition function error", typeof(DriverRepository));
-                throw;
-            }
-        }
-
-        public  async Task<IEnumerable<Driver>> GetTopDriversByRaceWins()
-        {
-            try
-            {
-                return await _dbSet.Where(x => x.Status == 1)
-                    .Include(x => x.Achievements)
-                    .AsNoTracking()
-                    .OrderByDescending(x => x.Achievements.RaceWins)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "{Repo} GetTopDriversByRaceWins function error", typeof(DriverRepository));
-                throw;
-            }
-        }
-
-        public async Task<IEnumerable<Driver>> GetTopDriversByWorldChampionships()
-        {
-            try
-            {
-                return await _dbSet.Where(x => x.Status == 1)
-                    .Include(x => x.Achievements)
-                    .AsNoTracking()
-                    .OrderByDescending(x => x.Achievements.WorldChampionship)
-                    .ToListAsync();
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex, "{Repo} GetTopDriversByWorldChampionships function error", typeof(DriverRepository));
                 throw;
             }
         }

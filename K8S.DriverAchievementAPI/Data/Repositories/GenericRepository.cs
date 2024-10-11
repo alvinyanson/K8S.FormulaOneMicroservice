@@ -1,8 +1,9 @@
 ﻿
-using K8S.DriverAPI.Data.Repositories.Interfaces;
+using K8S.DriverAchievementAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
-namespace K8S.DriverAPI.Data.Repositories
+namespace K8S.DriverAchievementAPI.Data.Repositories
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
