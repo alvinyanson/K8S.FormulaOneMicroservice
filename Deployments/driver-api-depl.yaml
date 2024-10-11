@@ -15,6 +15,13 @@ spec:
       containers:
         - name: driver-api-service
           image: ayansonarcanys/k8s-f1-driver-api:latest
+          resources:
+            requests:
+              cpu: "100m"  # Minimum CPU
+              memory: "128Mi"  # Minimum memory
+            limits:
+              cpu: "250m"  # Maximum CPU
+              memory: "256Mi"  # Maximum memory
 ---
 apiVersion: v1
 kind: Service

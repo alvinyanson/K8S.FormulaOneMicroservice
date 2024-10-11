@@ -30,6 +30,13 @@ spec:
           volumeMounts:
           - mountPath: /var/opt/mssql/data
             name: mssqldb
+          resources:
+            requests:
+              cpu: "250m"  # Minimum CPU
+              memory: "512Mi"  # Minimum memory
+            limits:
+              cpu: "500m"  # Maximum CPU
+              memory: "1Gi"  # Maximum memory
       volumes:
       - name: mssqldb
         persistentVolumeClaim:
