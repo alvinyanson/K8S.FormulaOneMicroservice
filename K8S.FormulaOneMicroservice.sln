@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "K8S.DTOs", "K8S.DTOs\K8S.DT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K8S.DriverAchievementAPI", "K8S.DriverAchievementAPI\K8S.DriverAchievementAPI.csproj", "{4DD4E293-E2BE-48F7-BBFE-B24AFD0B56D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K8S.API.Gateway", "K8S.API.Gateway\K8S.API.Gateway.csproj", "{6A886513-54A8-4808-B951-F223EC9F06B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4DD4E293-E2BE-48F7-BBFE-B24AFD0B56D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DD4E293-E2BE-48F7-BBFE-B24AFD0B56D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DD4E293-E2BE-48F7-BBFE-B24AFD0B56D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A886513-54A8-4808-B951-F223EC9F06B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A886513-54A8-4808-B951-F223EC9F06B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A886513-54A8-4808-B951-F223EC9F06B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A886513-54A8-4808-B951-F223EC9F06B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
