@@ -8,8 +8,6 @@ builder.Services.AddOcelot(builder.Configuration);
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Ocelot API Gateway!");
-
 await app.UseOcelot();
 
 app.Run();

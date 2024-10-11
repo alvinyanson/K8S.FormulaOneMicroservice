@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: driver-achievement-api-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: driver-achievement-api-service
+  template:
+    metadata:
+      labels:
+        app: driver-achievement-api-service
+    spec:
+      containers:
+        - name: driver-achievement-api-service
+          image: ayansonarcanys/k8s-f1-driver-achievement-api:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: driver-achievement-api-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: driver-achievement-api-service
+  ports:
+    - name: driver-achievement-api-service
+      protocol: TCP
+      port: 8080
+      targetPort: 8080

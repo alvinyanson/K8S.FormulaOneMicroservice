@@ -10,8 +10,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5208
+          "Host": "driver-api-srv",
+          "Port": 8080
         }
       ]
     },
@@ -22,8 +22,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5044
+          "Host": "driver-achievement-api-srv",
+          "Port": 8080
         }
       ]
     },
@@ -34,8 +34,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5221
+          "Host": "driver-stat-api-srv",
+          "Port": 8080
         }
       ]
     }
