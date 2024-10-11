@@ -13,7 +13,20 @@
           "Host": "driver-api-srv",
           "Port": 8080
         }
-      ]
+      ],
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "EnableContentHashing": true
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "60s",
+        "PeriodTimespan": 60,
+        "Limit": 5
+      }
     },
     {
       "UpstreamPathTemplate": "/gateway/achievement/{everything}",
@@ -25,7 +38,20 @@
           "Host": "driver-achievement-api-srv",
           "Port": 8080
         }
-      ]
+      ],
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "EnableContentHashing": true
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "60s",
+        "PeriodTimespan": 60,
+        "Limit": 5
+      }
     },
     {
       "UpstreamPathTemplate": "/gateway/driverstats/{everything}",
@@ -37,7 +63,20 @@
           "Host": "driver-stat-api-srv",
           "Port": 8080
         }
-      ]
+      ],
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "EnableContentHashing": true
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "60s",
+        "PeriodTimespan": 60,
+        "Limit": 5
+      }
     }
   ]
 }

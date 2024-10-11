@@ -13,7 +13,20 @@
           "Host": "localhost",
           "Port": 5100
         }
-      ]
+      ],
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "EnableContentHashing": true
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "60s",
+        "PeriodTimespan": 60,
+        "Limit": 5
+      }
     },
     {
       "UpstreamPathTemplate": "/gateway/achievement/{everything}",
@@ -25,7 +38,20 @@
           "Host": "localhost",
           "Port": 5200
         }
-      ]
+      ],
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "EnableContentHashing": true
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "60s",
+        "PeriodTimespan": 60,
+        "Limit": 5
+      }
     },
     {
       "UpstreamPathTemplate": "/gateway/driverstats/{everything}",
@@ -37,7 +63,19 @@
           "Host": "localhost",
           "Port": 5300
         }
-      ]
+      ],
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 60
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "60s",
+        "PeriodTimespan": 60,
+        "Limit": 5
+      }
     }
   ]
 }
