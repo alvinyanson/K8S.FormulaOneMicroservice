@@ -18,7 +18,7 @@ namespace K8S.DriverStatAPI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(new { success = true, message = "Connection established... 🔥🔥🔥" });
+            return Ok(new { success = true, message = "Connection established... 🔥 🔥 🔥" });
         }
 
 

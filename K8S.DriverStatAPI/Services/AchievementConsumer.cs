@@ -12,7 +12,12 @@ namespace K8S.DriverStatAPI.Services
         }
         public Task Consume(ConsumeContext<AchievementCreated> context)
         {
-            _logger.LogInformation(" [*] Message received RaceWins: {RaceWins} ,WorldChampionship: {WorldChampionship} ", context.Message.RaceWins, context.Message.WorldChampionship);
+            _logger.LogInformation("\n==========================================================================================");
+
+            _logger.LogInformation($"[*] 🔥 🔥 🔥  Latest driver achievement received: {context.Message.ToString()}");
+            
+            _logger.LogInformation("==========================================================================================\n");
+            
             return Task.CompletedTask;
         }
     }

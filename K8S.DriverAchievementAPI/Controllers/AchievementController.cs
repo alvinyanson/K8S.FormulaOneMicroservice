@@ -53,14 +53,9 @@ namespace K8S.DriverAchievementAPI.Controllers
             await _unitOfWork.Achievements.Add(result);
             await _unitOfWork.CompleteAsync();
 
-            _publishEndpoint.Publish<AchievementCreated>(new
-            {
-                RaceWins = result.RaceWins,
-                PolePosition = result.PolePosition,
-                FastestLap = result.FastestLap,
-                WorldChampionship = result.WorldChampionship,
-                DriverId = result.DriverId
-            });
+            var achievementCreated = result.Adapt<AchievementCreated>();
+
+            await _publishEndpoint.Publish<AchievementCreated>(achievementCreated);
 
             return CreatedAtAction(nameof(GetDriverAchievements), new { driverId = result.DriverId }, result);
         }
