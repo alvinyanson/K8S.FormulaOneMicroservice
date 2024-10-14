@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: driver-stat-api-service
-          image: ayansonarcanys/k8s-f1-driver-stat-api:latest
+          image: ayansonarcanys/k8s-f1-driver-stat-api:testv1
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"  # Minimum CPU

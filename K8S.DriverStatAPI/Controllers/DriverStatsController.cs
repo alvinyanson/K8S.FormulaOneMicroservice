@@ -21,6 +21,12 @@ namespace K8S.DriverStatAPI.Controllers
             return Ok(new { success = true, message = "Connection established... 🔥 🔥 🔥" });
         }
 
+        [HttpGet("TestV1")]
+        public IActionResult TestV1()
+        {
+            return Ok(new { success = true, message = "TestV1... 🔥 🔥 🔥" });
+        }
+
 
         [HttpGet("GetConsistencyRating/{driverId}")]
         public async Task<IActionResult> GetConsistencyRating(string driverId)
@@ -30,11 +36,11 @@ namespace K8S.DriverStatAPI.Controllers
                 var response = await client.GetAsync($"{_configuration.GetConnectionString("DriverAchievementAPI")}/{driverId}");
                 if (response.IsSuccessStatusCode)
                 {
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var response1 = await response.Content.ReadAsStringAsync();
 
-                    var parsedResponse = JsonSerializer.Deserialize<DriverAchievementResponse>(jsonResponse);
+                    var response2 = JsonSerializer.Deserialize<DriverAchievementResponse>(response1);
 
-                    var consistencyRating = (parsedResponse.Wins / parsedResponse.PolePosition) * 100;
+                    var consistencyRating = (response2.Wins / response2.PolePosition) * 100;
 
                     return Ok(consistencyRating);
                 }
