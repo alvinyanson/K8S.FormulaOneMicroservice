@@ -1,9 +1,11 @@
 ﻿
+using K8S.Contracts;
 using K8S.DriverAchievementAPI.Data.Repositories.Interfaces;
 using K8S.DriverAchievementAPI.DTOs.Requests;
 using K8S.DriverAchievementAPI.DTOs.Responses;
 using K8S.DriverAchievementAPI.Models;
 using Mapster;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace K8S.DriverAchievementAPI.Controllers
@@ -13,10 +15,12 @@ namespace K8S.DriverAchievementAPI.Controllers
     public class AchievementController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public AchievementController(IUnitOfWork unitOfWork) 
+        public AchievementController(IUnitOfWork unitOfWork, IPublishEndpoint publishEndpoint) 
         {
             _unitOfWork = unitOfWork;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpGet("TestConnection")]
@@ -48,6 +52,15 @@ namespace K8S.DriverAchievementAPI.Controllers
 
             await _unitOfWork.Achievements.Add(result);
             await _unitOfWork.CompleteAsync();
+
+            _publishEndpoint.Publish<AchievementCreated>(new
+            {
+                RaceWins = result.RaceWins,
+                PolePosition = result.PolePosition,
+                FastestLap = result.FastestLap,
+                WorldChampionship = result.WorldChampionship,
+                DriverId = result.DriverId
+            });
 
             return CreatedAtAction(nameof(GetDriverAchievements), new { driverId = result.DriverId }, result);
         }

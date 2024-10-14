@@ -3,6 +3,7 @@ using K8S.DriverAchievementAPI.Data.Repositories.Interfaces;
 using K8S.DriverAchievementAPI.Profiles;
 using K8S.DriverAchievementAPI.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using K8S.DriverAchievementAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,11 @@ Console.WriteLine($"Connection string --- {connectionString}");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+
+// mass transit rabbitmq
+builder.Services.AddConfigureMassTransitService(builder.Configuration);
 
 
 var app = builder.Build();
