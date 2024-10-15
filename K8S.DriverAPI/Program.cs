@@ -23,23 +23,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 Console.WriteLine($"Connection string --- {connectionString}");
 
 
-var configFolder = builder.Configuration.GetValue<string>("ConfigurationFolder");
+var dbConnectionString = Environment.GetEnvironmentVariable("SecretDefaultConnection");
 
-const string varName = "DOTNET_RUNNING_IN_CONTAINER";
-var runningInContainer = bool.TryParse(Environment.GetEnvironmentVariable(varName),
-  out var isRunningInContainer)
-  && isRunningInContainer;
-
-if (runningInContainer && !string.IsNullOrWhiteSpace(configFolder) && Directory.Exists(configFolder))
-{
-    builder.Configuration.AddKeyPerFile(configFolder, true, true);
-
-    Console.WriteLine($"ConfigurationFolder set to: '{configFolder}'.");
-    Console.WriteLine($"ConfigurationFolder exists: {Directory.Exists(configFolder)}");
-    Console.WriteLine($"Running in Container: '{runningInContainer}'.");
-
-    Console.WriteLine("Relying on default configuration");
-}
+Console.WriteLine($"dbConnectionString: {dbConnectionString}");
 
 
 // initialize db context in DI Container
@@ -48,11 +34,6 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conn
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
-
-// Access the configuration values after building
-var secretFile = app.Configuration["SecretDefaultConnection"];
-
-Console.WriteLine($"secret-file: {secretFile}");
 
 PrepDB.PrepPopulation(app, app.Environment.IsProduction());
 
