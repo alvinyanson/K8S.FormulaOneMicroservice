@@ -23,10 +23,32 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 Console.WriteLine($"Connection string --- {connectionString}");
 
 
-string apiUrl = Environment.GetEnvironmentVariable("API_URL")!;
+const string varName = "DOTNET_RUNNING_IN_CONTAINER";
+var runningInContainer = bool.TryParse(Environment.GetEnvironmentVariable(varName),
+  out var isRunningInContainer)
+  && isRunningInContainer;
 
-Console.WriteLine($"APIURL - {apiUrl}");
+var configFolder = builder.Configuration.GetValue<string>("ConfigurationFolder");
 
+if (runningInContainer && !string.IsNullOrWhiteSpace(configFolder) && Directory.Exists(configFolder))
+{
+    builder.Configuration.AddKeyPerFile(configFolder, false, true);
+
+    Console.WriteLine($"1ConfigurationFolder set to: '{configFolder}'.");
+    Console.WriteLine($"1ConfigurationFolder exists: {Directory.Exists(configFolder)}");
+    Console.WriteLine($"1Running in Container: '{runningInContainer}'.");
+
+    Console.WriteLine("1Relying on default configuration");
+}
+
+else
+{
+    Console.WriteLine($"2ConfigurationFolder set to: '{configFolder}'.");
+    Console.WriteLine($"2ConfigurationFolder exists: {Directory.Exists(configFolder)}");
+    Console.WriteLine($"2Running in Container: '{runningInContainer}'.");
+
+    Console.WriteLine("2Relying on default configuration");
+}
 
 // initialize db context in DI Container
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));

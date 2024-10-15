@@ -6,3 +6,7 @@ data:
   DB_CONNECTION_STRING: "Server=myserver;Database=mydb;User Id=myuser;Password=mypassword;"
   API_URL: "https://api.example.com"
   ENVIRONMENT: "Development"
+  ASP_NET_VERSION: "8.0"
+  KUBERNETES_VERSION: "1.0"
+  DOCKER_VERSION: "1.0"
+  SWYI_VERSION: "1.0"
