@@ -20,7 +20,31 @@ builder.Services.RegisterMapsterConfiguration();
 // connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-Console.WriteLine($"Connection string --- {connectionString}");
+var configFolder = builder.Configuration.GetValue<string>("ConfigurationFolder");
+
+const string varName = "DOTNET_RUNNING_IN_CONTAINER";
+var runningInContainer = bool.TryParse(Environment.GetEnvironmentVariable(varName),
+  out var isRunningInContainer)
+  && isRunningInContainer;
+
+if (runningInContainer && !string.IsNullOrWhiteSpace(configFolder) && Directory.Exists(configFolder))
+{
+    builder.Configuration.AddKeyPerFile(configFolder, true, true);
+
+    Console.WriteLine($"ConfigurationFolder set to: '{configFolder}'.");
+    Console.WriteLine($"ConfigurationFolder exists: {Directory.Exists(configFolder)}");
+    Console.WriteLine($"Running in Container: '{runningInContainer}'.");
+
+    connectionString = builder.Configuration["SecretDefaultConnection"];
+
+    Console.WriteLine($"Relying on K8S configuration: {connectionString}");
+    Console.WriteLine($"DriverStatAPI: {builder.Configuration["DriverStatAPI"]}");
+}
+
+else
+{
+    Console.WriteLine("Relying on local dev machine configuration");
+}
 
 
 // initialize db context in DI Container

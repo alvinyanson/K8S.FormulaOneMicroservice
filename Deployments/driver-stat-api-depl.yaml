@@ -15,6 +15,12 @@ spec:
       containers:
         - name: driver-stat-api-service
           image: ayansonarcanys/k8s-f1-driver-stat-api:latest
+          env:
+          - name: ConfigurationFolder
+            value: /app/secrets
+          volumeMounts:
+            - name: appsettings-secret-volume
+              mountPath: /app/secrets
           resources:
             requests:
               cpu: "100m"  # Minimum CPU
@@ -22,6 +28,10 @@ spec:
             limits:
               cpu: "250m"  # Maximum CPU
               memory: "256Mi"  # Maximum memory
+      volumes:
+        - name: appsettings-secret-volume
+          secret:
+            secretName: appsettings
 ---
 apiVersion: v1
 kind: Service

@@ -27,7 +27,7 @@ namespace K8S.DriverStatAPI.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                var response = await client.GetAsync($"{_configuration.GetConnectionString("DriverAchievementAPI")}/{driverId}");
+                var response = await client.GetAsync($"{_configuration["DriverAchievementAPI"]}/{driverId}");
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();
