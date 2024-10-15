@@ -15,6 +15,22 @@ spec:
       containers:
         - name: driver-api-service
           image: ayansonarcanys/k8s-f1-driver-api:latest
+          env:
+          - name: DB_CONNECTION_STRING
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: DB_CONNECTION_STRING
+          - name: API_URL
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: API_URL
+          - name: ENVIRONMENT
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: ENVIRONMENT
           resources:
             requests:
               cpu: "100m"  # Minimum CPU

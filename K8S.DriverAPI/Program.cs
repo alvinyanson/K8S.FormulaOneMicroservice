@@ -23,6 +23,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 Console.WriteLine($"Connection string --- {connectionString}");
 
 
+string apiUrl = Environment.GetEnvironmentVariable("API_URL")!;
+
+Console.WriteLine($"APIURL - {apiUrl}");
+
+
 // initialize db context in DI Container
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
