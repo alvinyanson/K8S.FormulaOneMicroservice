@@ -15,10 +15,10 @@ namespace K8S.DriverStatAPI.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet]
-        public IActionResult Index()
+        [HttpGet("Test")]
+        public IActionResult Test()
         {
-            return Ok(new { success = true, message = "Connection established... 🔥🔥🔥" });
+            return Ok("Connection worked");
         }
 
 

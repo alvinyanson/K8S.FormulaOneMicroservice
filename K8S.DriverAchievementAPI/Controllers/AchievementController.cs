@@ -19,11 +19,10 @@ namespace K8S.DriverAchievementAPI.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet("TestConnection")]
-        public IActionResult TestConnection() {
-            return Ok("Connection is OK");
+        [HttpGet("Test")]
+        public IActionResult Test() {
+            return Ok("Connection worked");
         }
-
 
         [HttpGet("{driverId:Guid}")]
         public async Task<IActionResult> GetDriverAchievements(Guid driverId)
